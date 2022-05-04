@@ -54,10 +54,13 @@
 				<div class="col-md-2">
 					<label>Prioridade:</label>
 					<form:select path="model.prioridade" id="prioridade" name="prioridade" class="form-select">
+						
+						<!-- opção default -->
 						<option value="">Selecione</option>
-						<option value="1">ALTA</option>
-						<option value="2">MÉDIA</option>
-						<option value="3">BAIXA</option>
+						
+						<!-- opções do campo -->
+						<form:options items="${prioridades}"/>
+						
 					</form:select>
 				</div>
 			</div>

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.cotiinformatica.entities.Tarefa;
 import br.com.cotiinformatica.entities.Usuario;
+import br.com.cotiinformatica.enums.PrioridadeTarefa;
 import br.com.cotiinformatica.helpers.DateHelper;
 import br.com.cotiinformatica.models.TarefaCadastroModel;
 import br.com.cotiinformatica.repositories.TarefaRepository;
@@ -23,6 +24,8 @@ public class TarefasCadastroController {
 		ModelAndView modelAndView = new ModelAndView("tarefas-cadastro");
 		
 		modelAndView.addObject("model", new TarefaCadastroModel());		
+		modelAndView.addObject("prioridades", PrioridadeTarefa.values());
+		
 		return modelAndView;
 	}
 	
@@ -43,7 +46,12 @@ public class TarefasCadastroController {
 			tarefa.setNome(model.getNome());
 			tarefa.setData(DateHelper.formatToDate(model.getData()));
 			tarefa.setHora(model.getHora());
-			tarefa.setPrioridade(Integer.parseInt(model.getPrioridade()));
+			
+			tarefa.setPrioridade(model.getPrioridade().equals("ALTA") ? 1 
+					: model.getPrioridade().equals("MEDIA") ? 2 
+					: model.getPrioridade().equals("BAIXA") ? 3
+					: 0);
+			
 			tarefa.setDescricao(model.getDescricao());
 			tarefa.setUsuario(usuario);
 			
@@ -56,7 +64,8 @@ public class TarefasCadastroController {
 			modelAndView.addObject("mensagem", "Ocorreu um erro: " + e.getMessage());
 		}
 		
-		modelAndView.addObject("model", new TarefaCadastroModel());		
+		modelAndView.addObject("model", new TarefaCadastroModel());	
+		modelAndView.addObject("prioridades", PrioridadeTarefa.values());
 		return modelAndView;
 	}
 	
