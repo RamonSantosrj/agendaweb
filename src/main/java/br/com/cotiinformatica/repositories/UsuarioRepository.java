@@ -23,6 +23,19 @@ public class UsuarioRepository implements IUsuarioRepository {
 		
 		connection.close();
 	}
+	
+	@Override
+	public void update(Integer idUsuario, String novaSenha) throws Exception {
+		
+		Connection connection = ConnectionFactory.getConnection();
+		
+		PreparedStatement statement = connection.prepareStatement("update usuario set senha=md5(?) where idusuario=?");
+		statement.setString(1, novaSenha);
+		statement.setInt(2, idUsuario);
+		statement.execute();
+		
+		connection.close();
+	}
 
 	@Override
 	public Usuario find(String email) throws Exception {

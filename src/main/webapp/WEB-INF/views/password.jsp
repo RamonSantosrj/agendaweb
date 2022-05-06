@@ -54,6 +54,10 @@
 								</a>
 							</div>
 						</div>
+						
+						<div class="text-center">
+							<strong>${mensagem}</strong>
+						</div>
 					
 					</form>
 					
